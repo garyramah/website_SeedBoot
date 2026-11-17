@@ -1,0 +1,1198 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>SeedBoot: One-Round Venture Studio and Capital Efficiency Engine</title>
+<meta name="description" content="Raise once. Keep your company. Clear a strategic exit. Compare Seed-Strapping vs. Multi-Round VC dilution and exit payouts on seedboot.com." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f6f7f4;
+    --surface:#ffffff;
+    --surface-2:#eef1ec;
+    --ink:#14201a;
+    --ink-soft:#43534a;
+    --ink-faint:#6b7a70;
+    --line:#d9ded6;
+    --accent:#0a7a4b;
+    --accent-strong:#065f3a;
+    --accent-soft:#e2f2e8;
+    --amber:#b45309;
+    --amber-soft:#fdf0dd;
+    --hero-bg:#0e1a14;
+    --hero-ink:#f2f6f2;
+    --hero-soft:#b9c8bc;
+    --hero-card:#16261c;
+    --hero-line:#2a3d31;
+    --danger-bg:#fdeeee;
+    --danger-ink:#9b2226;
+    --danger-line:#f0c4c4;
+    --radius:14px;
+    --shadow:0 1px 3px rgba(20,32,26,.08),0 8px 24px rgba(20,32,26,.05);
+  }
+  [data-theme="dark"]{
+    --bg:#0b120e;
+    --surface:#131e17;
+    --surface-2:#1a2920;
+    --ink:#e8efe9;
+    --ink-soft:#b7c6ba;
+    --ink-faint:#8ba091;
+    --line:#2b3d32;
+    --accent:#3ecf8e;
+    --accent-strong:#3ecf8e;
+    --accent-soft:#173527;
+    --amber:#f0b35e;
+    --amber-soft:#33270f;
+    --hero-bg:#081009;
+    --hero-card:#12211a;
+    --hero-line:#24382c;
+    --danger-bg:#3a1719;
+    --danger-ink:#f3b3b5;
+    --danger-line:#5c2a2d;
+    --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0b120e; --surface:#131e17; --surface-2:#1a2920; --ink:#e8efe9;
+      --ink-soft:#b7c6ba; --ink-faint:#8ba091; --line:#2b3d32;
+      --accent:#3ecf8e; --accent-strong:#3ecf8e; --accent-soft:#173527;
+      --amber:#f0b35e; --amber-soft:#33270f;
+      --hero-bg:#081009; --hero-card:#12211a; --hero-line:#24382c;
+      --danger-bg:#3a1719; --danger-ink:#f3b3b5; --danger-line:#5c2a2d;
+      --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  a{color:var(--accent-strong)}
+  button,[role="button"],select,summary,input:not([type="checkbox"],[type="radio"]){min-height:2.75rem}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+  /* Header */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .brand-mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px;flex:none}
+  .brand-name{font-weight:800;font-size:18px;letter-spacing:-.02em}
+  .brand-name em{font-style:normal;color:var(--accent-strong)}
+  .brand-tag{display:none;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--surface-2);color:var(--ink-faint);padding:3px 7px;border-radius:5px}
+  @media(min-width:640px){.brand-tag{display:inline-block}}
+  nav.main{display:none;gap:26px;font-size:14px;font-weight:600}
+  nav.main a{color:var(--ink-soft);text-decoration:none;padding:10px 2px}
+  nav.main a:hover{color:var(--accent-strong)}
+  @media(min-width:860px){nav.main{display:flex}}
+  .header-actions{display:flex;align-items:center;gap:10px}
+  .icon-btn{width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:11px;font-weight:700;font-size:15px;text-decoration:none;padding:12px 22px;min-height:48px;cursor:pointer;border:1px solid transparent;transition:background .15s ease}
+  .btn-accent{background:var(--accent);color:#fff}
+  .btn-accent:hover{background:var(--accent-strong)}
+  .btn-dark{background:var(--ink);color:var(--bg)}
+  .btn-ghost-dark{background:transparent;color:var(--hero-ink);border-color:var(--hero-line)}
+  .btn-ghost-dark:hover{border-color:var(--accent)}
+  .btn-sm{padding:9px 16px;min-height:44px;font-size:14px}
+  nav.mobile{display:flex;flex-wrap:nowrap;gap:18px;padding:6px 20px;border-top:1px solid var(--line);font-size:12.5px;font-weight:600}
+  .btn{white-space:nowrap}
+  .icon-btn svg{width:19px;height:19px;display:block}
+  .icon-btn .sun{display:none}
+  [data-theme="dark"] .icon-btn .sun{display:block}
+  [data-theme="dark"] .icon-btn .moon{display:none}
+  @media(max-width:559px){
+    .brand-name{font-size:16px}
+    .header-actions .btn-sm{padding:8px 12px;font-size:13px}
+    .header-in{gap:10px}
+    .eyebrow{font-size:9.5px;letter-spacing:.05em;padding:6px 11px}
+  }
+  nav.mobile a{color:var(--ink-soft);text-decoration:none;white-space:nowrap;padding:6px 0}
+  @media(min-width:860px){nav.mobile{display:none}}
+
+  /* Hero */
+  .hero{background:var(--hero-bg);color:var(--hero-ink);border-bottom:1px solid var(--hero-line)}
+  .hero-in{padding-top:56px;padding-bottom:64px}
+  @media(min-width:900px){.hero-in{padding-top:84px;padding-bottom:88px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7fe3ae;border:1px solid var(--hero-line);background:var(--hero-card);border-radius:999px;padding:7px 13px;margin-bottom:24px}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:#3ecf8e}
+  h1{font-size:clamp(32px,5.4vw,58px);line-height:1.08;letter-spacing:-.025em;font-weight:800;margin:0 0 20px;max-width:820px}
+  h1 .hl{color:#3ecf8e}
+  .hero-sub{font-size:clamp(16px,2vw,20px);color:var(--hero-soft);max-width:760px;margin:0 0 34px;line-height:1.6}
+  .hero-ctas{display:flex;flex-direction:column;gap:12px;margin-bottom:52px}
+  @media(min-width:560px){.hero-ctas{flex-direction:row}}
+  .hero-stats{display:grid;grid-template-columns:1fr;gap:14px;border-top:1px solid var(--hero-line);padding-top:30px}
+  @media(min-width:820px){.hero-stats{grid-template-columns:repeat(3,1fr)}}
+  .hero-stat{background:var(--hero-card);border:1px solid var(--hero-line);border-radius:var(--radius);padding:20px}
+  .hero-stat .big{font-family:"JetBrains Mono",monospace;font-size:27px;font-weight:700;color:#3ecf8e;margin-bottom:4px}
+  .hero-stat .t{font-weight:700;font-size:14px;margin-bottom:4px}
+  .hero-stat p{margin:0;font-size:13px;color:var(--hero-soft);line-height:1.5}
+
+  /* Sections */
+  section.block{padding:64px 0;border-bottom:1px solid var(--line)}
+  @media(min-width:900px){section.block{padding:88px 0}}
+  section.alt{background:var(--surface)}
+  .kicker{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-strong);font-weight:700;margin-bottom:10px}
+  h2{font-size:clamp(26px,3.6vw,38px);letter-spacing:-.02em;line-height:1.15;margin:0 0 14px;font-weight:800}
+  .lede{font-size:17px;color:var(--ink-soft);max-width:720px;margin:0}
+  .section-head{max-width:760px;margin-bottom:40px}
+
+  /* Lane cards */
+  .lanes{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:22px}
+  @media(min-width:900px){.lanes{grid-template-columns:1fr 1fr}}
+  .lane{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow)}
+  .lane.featured{border:2px solid var(--accent)}
+  .lane-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:20px}
+  .chip{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;padding:4px 9px;border-radius:6px;margin-bottom:8px;font-weight:700}
+  .chip-amber{background:var(--amber-soft);color:var(--amber)}
+  .chip-green{background:var(--accent-soft);color:var(--accent-strong)}
+  .lane h3{margin:0;font-size:21px;font-weight:800;letter-spacing:-.01em}
+  .lane-exit{text-align:right;font-family:"JetBrains Mono",monospace;flex:none}
+  .lane-exit .lab{font-size:11px;color:var(--ink-faint)}
+  .lane-exit .val{font-size:17px;font-weight:700}
+  .val-amber{color:var(--amber)} .val-green{color:var(--accent-strong)}
+  .lane ul{list-style:none;margin:0;padding:0;display:grid;gap:15px}
+  .lane li{display:flex;gap:11px;font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+  .lane li strong{color:var(--ink)}
+  .mark{font-family:"JetBrains Mono",monospace;font-weight:700;flex:none}
+  .mark-x{color:var(--amber)} .mark-ok{color:var(--accent-strong)}
+  .parity{background:var(--ink);color:var(--bg);border-radius:16px;padding:24px 26px;display:flex;flex-direction:column;gap:16px}
+  @media(min-width:820px){.parity{flex-direction:row;align-items:center;justify-content:space-between}}
+  .parity .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  [data-theme="dark"] .parity .k{color:#3ecf8e}
+  .parity .eq{font-size:18px;font-weight:700;margin:0}
+  .parity .eq .g{color:#3ecf8e;font-family:"JetBrains Mono",monospace}
+  .parity .eq .a{color:#f0b35e;font-family:"JetBrains Mono",monospace}
+  .parity .note{font-size:13px;opacity:.75;margin:4px 0 0}
+  .parity .btn{flex:none}
+
+  /* Calculator */
+  .calc-head{display:flex;flex-direction:column;gap:20px;margin-bottom:36px}
+  @media(min-width:1000px){.calc-head{flex-direction:row;align-items:flex-end;justify-content:space-between}}
+  .presets{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .presets .lab{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;color:var(--ink-faint)}
+  .preset-btn{min-height:40px;padding:8px 13px;border-radius:9px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-soft);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+  .preset-btn.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-strong)}
+  .calc-grid{display:grid;grid-template-columns:1fr;gap:22px;align-items:start}
+  @media(min-width:1000px){.calc-grid{grid-template-columns:5fr 7fr}}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+  section.alt .card{background:var(--surface)}
+  .card + .card{margin-top:20px}
+  .card h3{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;display:flex;align-items:center;gap:8px}
+  .dotc{width:10px;height:10px;border-radius:50%;flex:none}
+  .dot-green{background:var(--accent)} .dot-amber{background:var(--amber)}
+  .card-head-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:10px}
+  .reset-link{background:none;border:none;color:var(--ink-faint);font-size:12px;font-family:"JetBrains Mono",monospace;text-decoration:underline;cursor:pointer;min-height:36px;padding:4px 6px}
+  .ctl{margin-bottom:24px}
+  .ctl:last-child{margin-bottom:0}
+  .ctl-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+  .ctl label{font-size:14px;font-weight:600;color:var(--ink-soft)}
+  .numbox{display:flex;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:4px 10px;gap:2px}
+  section.alt .numbox{background:var(--bg)}
+  .numbox span{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-faint)}
+  .numbox input{width:58px;border:none;background:transparent;text-align:right;font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:700;color:var(--ink);min-height:32px;padding:0}
+  .numbox input:focus{outline:none}
+  input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:99px;background:var(--line);outline:none;cursor:pointer;min-height:36px;background-clip:content-box;padding:14px 0}
+  input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer}
+  input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer}
+  input[type="range"].vc::-webkit-slider-thumb{background:var(--amber)}
+  input[type="range"].vc::-moz-range-thumb{background:var(--amber)}
+  .scale{display:flex;justify-content:space-between;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-faint);margin-top:2px}
+  .implied{display:flex;justify-content:space-between;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-faint);margin-top:10px}
+  .implied b{color:var(--accent-strong)}
+  .vc-toggle{width:100%;background:none;border:none;padding:0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;color:var(--ink);text-align:left}
+  .vc-toggle h3{pointer-events:none}
+  .vc-toggle .chev{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-faint)}
+  .vc-body{margin-top:20px;display:grid;gap:16px}
+  .vc-body.hidden{display:none}
+  .mini-ctl .row{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:2px}
+  .mini-ctl .row span:first-child{color:var(--ink-soft)}
+  .mini-ctl .row b{font-family:"JetBrains Mono",monospace;color:var(--amber)}
+  .mini-note{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.5}
+  .divider{border-top:1px solid var(--line);padding-top:14px}
+
+  .insight{background:#0e2418;color:#eafaf0;border:1px solid #1d4630;border-radius:18px;padding:22px 24px;display:flex;gap:14px;margin-bottom:18px}
+  .insight .delta{width:34px;height:34px;flex:none;border-radius:9px;background:rgba(62,207,142,.15);border:1px solid rgba(62,207,142,.35);display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-weight:700;color:#3ecf8e}
+  .insight .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#3ecf8e;margin-bottom:4px}
+  .insight p{margin:0;font-size:15px;line-height:1.6;font-weight:500}
+  .insight .mono{font-weight:700}
+  .insight .g{color:#3ecf8e}.insight .a{color:#f0b35e}
+  .path-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:18px}
+  @media(min-width:620px){.path-grid{grid-template-columns:1fr 1fr}}
+  .path{border-radius:18px;padding:22px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+  section.alt .path{background:var(--bg)}
+  .path.featured{border:2px solid var(--accent)}
+  .path-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:16px}
+  .path-top .name{font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .name-green{color:var(--accent-strong)} .name-amber{color:var(--amber)}
+  .tag{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:3px 8px;border-radius:5px;background:var(--accent-soft);color:var(--accent-strong)}
+  .tag-amber{background:var(--amber-soft);color:var(--amber)}
+  .path .lab2{font-size:12px;color:var(--ink-faint)}
+  .payout{font-family:"JetBrains Mono",monospace;font-size:clamp(28px,3vw,36px);font-weight:700;letter-spacing:-.01em;margin-bottom:18px}
+  .payout-green{color:var(--accent-strong)}
+  .path dl{margin:0;border-top:1px solid var(--line);padding-top:14px;display:grid;gap:9px}
+  .path dl div{display:flex;justify-content:space-between;gap:10px;font-size:12.5px}
+  .path dt{color:var(--ink-faint)}
+  .path dd{margin:0;font-family:"JetBrains Mono",monospace;font-weight:600;text-align:right}
+  .chart-card{border-radius:18px;padding:22px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);margin-bottom:18px}
+  section.alt .chart-card{background:var(--bg)}
+  .chart-card:last-child{margin-bottom:0}
+  .chart-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-bottom:16px}
+  .chart-head h4{margin:0;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase}
+  .chart-head p{margin:3px 0 0;font-size:11.5px;color:var(--ink-faint)}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--ink-faint);align-items:center}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .sw-green{background:var(--accent)} .sw-slate{background:#5b6f62} .sw-amber{background:var(--amber)}
+  .bar-row{margin-bottom:16px}
+  .bar-row:last-child{margin-bottom:0}
+  .bar-lab{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:600;margin-bottom:6px;flex-wrap:wrap}
+  .bar-lab .mono{font-size:11.5px}
+  .bar-track{height:28px;border-radius:8px;overflow:hidden;display:flex;background:var(--surface-2)}
+  .bar-seg{height:100%;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:#fff;transition:width .3s ease;overflow:hidden;white-space:nowrap}
+  .seg-founders{background:var(--accent)}
+  .seg-seed{background:#5b6f62}
+  .seg-later{background:var(--amber);color:#231600}
+  svg.chart{width:100%;height:auto;display:block}
+
+  /* Buy box */
+  .buy-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:620px){.buy-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.buy-grid{grid-template-columns:repeat(4,1fr)}}
+  .buy{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+  .buy .k{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:var(--accent-strong);margin-bottom:8px}
+  .buy .big{font-family:"JetBrains Mono",monospace;font-size:23px;font-weight:700;margin-bottom:8px}
+  .buy p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.55}
+
+  /* Form */
+  .form-wrap{max-width:860px;margin:0 auto}
+  .form-card{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:var(--shadow)}
+  section.alt .form-card{background:var(--surface)}
+  @media(min-width:700px){.form-card{padding:38px}}
+  form{display:grid;gap:22px}
+  .f-row{display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:640px){.f-row.two{grid-template-columns:1fr 1fr}}
+  label.flabel{display:block;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin-bottom:8px}
+  label.flabel .req{color:var(--accent-strong)}
+  input[type="text"],input[type="email"],select,textarea{
+    width:100%;padding:12px 15px;border-radius:11px;border:1px solid var(--line);
+    background:var(--surface);color:var(--ink);font-size:14.5px;font-family:inherit;min-height:48px;
+  }
+  section.alt input[type="text"],section.alt input[type="email"],section.alt select,section.alt textarea{background:var(--bg)}
+  textarea{min-height:110px;resize:vertical;line-height:1.55}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .pills{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(min-width:640px){.pills{grid-template-columns:repeat(4,1fr)}}
+  .pill input{position:absolute;opacity:0;pointer-events:none}
+  .pill div{text-align:center;padding:12px 8px;border-radius:11px;border:1px solid var(--line);background:var(--surface);font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--ink-soft);min-height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  section.alt .pill div{background:var(--bg)}
+  .pill input:checked + div{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-strong)}
+  .pill input:focus-visible + div{outline:2px solid var(--accent);outline-offset:2px}
+  .err{display:none;border-radius:11px;background:var(--danger-bg);border:1px solid var(--danger-line);color:var(--danger-ink);padding:13px 15px;font-size:13px;font-weight:600}
+  .err.show{display:block}
+  .form-foot{display:flex;flex-direction:column;gap:14px;align-items:stretch}
+  @media(min-width:640px){.form-foot{flex-direction:row;align-items:center;justify-content:space-between}}
+  .form-foot p{margin:0;font-size:12.5px;color:var(--ink-faint);max-width:420px}
+  .result-card{display:none;background:var(--bg);border:2px solid var(--accent);border-radius:20px;padding:26px;box-shadow:var(--shadow)}
+  section.alt .result-card{background:var(--surface)}
+  @media(min-width:700px){.result-card{padding:38px}}
+  .result-card.show{display:block}
+  .result-top{display:flex;flex-direction:column;gap:16px;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:22px}
+  @media(min-width:700px){.result-top{flex-direction:row;justify-content:space-between;align-items:center}}
+  .ok-chip{display:inline-block;background:var(--accent-soft);color:var(--accent-strong);font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;padding:5px 10px;border-radius:6px;margin-bottom:8px}
+  .result-top h3{margin:0;font-size:24px;font-weight:800}
+  .result-top .meta{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-faint);margin-top:4px}
+  .score-box{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px 18px}
+  section.alt .score-box{background:var(--bg)}
+  .score-box .lab{font-family:"JetBrains Mono",monospace;font-size:10.5px;text-transform:uppercase;color:var(--ink-faint)}
+  .score-box .tier{font-size:12.5px;font-weight:700;color:var(--accent-strong)}
+  .score-num{font-family:"JetBrains Mono",monospace;font-size:32px;font-weight:700;color:var(--accent-strong)}
+  .score-num small{font-size:13px;color:var(--ink-faint)}
+  .result-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:22px}
+  @media(min-width:700px){.result-grid{grid-template-columns:1fr 1fr}}
+  .result-box{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:20px}
+  section.alt .result-box{background:var(--bg)}
+  .result-box h4{margin:0 0 12px;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase}
+  .result-box ul,.result-box ol{margin:0;padding:0;font-size:12.5px;color:var(--ink-soft);display:grid;gap:9px;line-height:1.55}
+  .result-box ul{list-style:none}
+  .result-box ol{padding-left:18px}
+  .result-box strong{color:var(--ink)}
+  .result-actions{display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+  @media(min-width:640px){.result-actions{flex-direction:row;justify-content:space-between;align-items:center}}
+
+  /* Footer */
+  footer.site{background:#0a120d;color:#9db3a4;border-top:1px solid #223528}
+  .footer-in{padding-top:44px;padding-bottom:36px}
+  .footer-top{display:flex;flex-direction:column;gap:18px;padding-bottom:26px;border-bottom:1px solid #223528}
+  @media(min-width:760px){.footer-top{flex-direction:row;justify-content:space-between;align-items:center}}
+  .footer-brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800}
+  .footer-brand .brand-mark{width:28px;height:28px;font-size:11px;border-radius:7px}
+  .footer-brand span.note{color:#7d927f;font-weight:500;font-size:13px}
+  .footer-nav{display:flex;flex-wrap:wrap;gap:8px 24px;font-family:"JetBrains Mono",monospace;font-size:12.5px}
+  .footer-nav a{color:#9db3a4;text-decoration:none;padding:10px 0}
+  .footer-nav a:hover{color:#3ecf8e}
+  .footer-nav a.buy{color:#3ecf8e;font-weight:700}
+  .atom-pointer{padding:20px 0;border-bottom:1px solid #223528}
+  .atom-pointer p{margin:0;font-size:15px;color:#d7e4da}
+  .atom-pointer a{color:#3ecf8e;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+  .footer-bottom{display:flex;flex-direction:column;gap:10px;padding-top:22px;font-size:11.5px;line-height:1.6;color:#71836f}
+  @media(min-width:760px){.footer-bottom{flex-direction:row;justify-content:space-between}}
+  .footer-bottom p{margin:0;max-width:820px}
+  .footer-bottom .copy{font-family:"JetBrains Mono",monospace;flex:none}
+  .center{text-align:center}
+  .center .lede{margin-left:auto;margin-right:auto}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap header-in">
+    <a class="brand" href="#top">
+      <span class="brand-mark">SB</span>
+      <span class="brand-name">seedboot<em>.com</em></span>
+      <span class="brand-tag">Studio &amp; Capital</span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="#thesis">Thesis</a>
+      <a href="#math">The Math</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#buybox">M&amp;A Buy-Box</a>
+      <a href="#apply">Apply</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <a class="btn btn-dark btn-sm" href="#apply">Submit Venture</a>
+    </div>
+  </div>
+  <nav class="mobile" aria-label="Mobile">
+    <a href="#thesis">Thesis</a>
+    <a href="#math">Math</a>
+    <a href="#calculator">Calculator</a>
+    <a href="#buybox">Buy-Box</a>
+    <a href="#apply">Apply</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="eyebrow"><span class="dot"></span> One-round capital &middot; Zero Series A/B dilution</div>
+      <h1>Raise Once. Keep Your Company. <span class="hl">Clear a Strategic Exit.</span></h1>
+      <p class="hero-sub">Venture capital has bifurcated. Mega-funds hunt $100B+ decacorns while AI-native teams of 3 to 5 builders can raise a single $1M to $3M check, reach profitability, and sell to Fortune 500 or PE acquirers for $25M to $250M, with life-changing founder ownership intact.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-accent" href="#calculator">Run the Exit Math &#8595;</a>
+        <a class="btn btn-ghost-dark" href="#apply">Submit Your Venture &#8594;</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="big">1 Round</div>
+          <div class="t">Single Check, Zero Pro-Rata Traps</div>
+          <p>No forced hyper-growth treadmill, no preference stack, and no follow-on dilution rounds.</p>
+        </div>
+        <div class="hero-stat">
+          <div class="big">75% to 85%</div>
+          <div class="t">Founder Ownership at Exit</div>
+          <p>Compare against roughly 15% to 25% remaining after Seed, Series A, B, C, and option pool refreshes.</p>
+        </div>
+        <div class="hero-stat">
+          <div class="big">$25M to $250M</div>
+          <div class="t">Fortune 500 and PE Bolt-On Sweet Spot</div>
+          <p>Acquisitions that clear corporate development committees fast without antitrust scrutiny.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THESIS -->
+  <section class="block" id="thesis">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">01 // Market Structure</div>
+        <h2>The Middle of Venture Emptied Out. We Built for the Room They Left.</h2>
+        <p class="lede">Five engineers with AI agents now ship what fifty engineers shipped in 2021. When building is cheap and distribution is vertical, raising $50M+ does not build a moat. It builds a liquidation preference overhang that blocks $80M to $150M exits.</p>
+      </div>
+
+      <div class="lanes" id="math">
+        <div class="lane">
+          <div class="lane-top">
+            <div>
+              <span class="chip chip-amber">Lane A &middot; Multi-Round VC</span>
+              <h3>Trillion or Bust</h3>
+            </div>
+            <div class="lane-exit">
+              <div class="lab">Min. Viable Exit</div>
+              <div class="val val-amber">$1B to $10B+</div>
+            </div>
+          </div>
+          <ul>
+            <li><span class="mark mark-x">&times;</span><div><strong>Capital as a Weapon:</strong> Raise Seed, A, B, C+ continuously to subsidize CAC and outspend competitors.</div></li>
+            <li><span class="mark mark-x">&times;</span><div><strong>Severe Compounding Dilution:</strong> Founders routinely drop from 85% post-seed to 15% to 22% by Series C.</div></li>
+            <li><span class="mark mark-x">&times;</span><div><strong>Preference Overhang:</strong> $40M to $120M in senior liquidation preferences gets paid first before common stock sees a dollar.</div></li>
+            <li><span class="mark mark-x">&times;</span><div><strong>Board Veto on $100M Exits:</strong> A $100M acquisition fails to move the needle for a $1B+ fund, so the board forces you to swing until zero.</div></li>
+          </ul>
+        </div>
+
+        <div class="lane featured">
+          <div class="lane-top">
+            <div>
+              <span class="chip chip-green">Lane B &middot; SeedBoot Model</span>
+              <h3>Seed-Strap and Clear</h3>
+            </div>
+            <div class="lane-exit">
+              <div class="lab">Target Exit Zone</div>
+              <div class="val val-green">$25M to $250M</div>
+            </div>
+          </div>
+          <ul>
+            <li><span class="mark mark-ok">&#10003;</span><div><strong>One Check to Profitability:</strong> Raise $500K to $3M once, reach cash-flow breakeven with a 3 to 6 person AI-leveraged team.</div></li>
+            <li><span class="mark mark-ok">&#10003;</span><div><strong>Ownership Survives Intact:</strong> Both founders (roughly 80% to 88%) and SeedBoot (roughly 10% to 15%) hold un-diluted equity all the way to exit.</div></li>
+            <li><span class="mark mark-ok">&#10003;</span><div><strong>Clean Cap Table:</strong> Minimal preference stack means an $80M strategic sale delivers roughly $68M+ directly to founders.</div></li>
+            <li><span class="mark mark-ok">&#10003;</span><div><strong>100% Incentive Alignment:</strong> 12% of a $100M exit returns 6x to 12x on our seed check, so we celebrate and help close strategic M&amp;A.</div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="parity">
+        <div>
+          <div class="k">The Core Identity of Ownership</div>
+          <p class="eq">10% of a $1B exit = <span class="g">$100M</span>. &nbsp; 1% of a $10B exit = <span class="a">$100M</span>.</p>
+          <p class="note">Same cash return. One outcome clears corporate M&amp;A desks every week; the other happens 20 times a decade.</p>
+        </div>
+        <a class="btn btn-accent" href="#calculator">Model Your Cap Table &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="block alt" id="calculator">
+    <div class="wrap">
+      <div class="calc-head">
+        <div class="section-head" style="margin-bottom:0">
+          <div class="kicker">02 // Interactive Cap-Table and Waterfall Engine</div>
+          <h2>Seed-Strap vs. Multi-Round VC Calculator</h2>
+          <p class="lede" style="font-size:15.5px">Adjust exit valuation, single-round check size, and multi-round dilution assumptions to see exact founder net payouts after liquidation preferences.</p>
+        </div>
+        <div class="presets">
+          <span class="lab">Presets:</span>
+          <button type="button" class="preset-btn active" data-preset="base44">Base44 Path ($80M Exit)</button>
+          <button type="button" class="preset-btn" data-preset="midmarket">Mid-Market AI Bolt-On ($150M)</button>
+          <button type="button" class="preset-btn" data-preset="zapier">Breakout Compounder ($500M)</button>
+        </div>
+      </div>
+
+      <div class="calc-grid">
+        <!-- Controls -->
+        <div>
+          <div class="card">
+            <div class="card-head-row">
+              <h3><span class="dotc dot-green"></span> Exit and Seed-Strap Parameters</h3>
+              <button type="button" class="reset-link" id="resetCalcBtn">Reset</button>
+            </div>
+
+            <div class="ctl">
+              <div class="ctl-row">
+                <label for="exitValSlider">Target Exit Valuation</label>
+                <div class="numbox"><span>$</span><input type="number" id="exitValInput" min="10" max="1000" step="5" value="80" /><span>M</span></div>
+              </div>
+              <input type="range" id="exitValSlider" min="10" max="1000" step="5" value="80" />
+              <div class="scale"><span>$10M</span><span>$250M</span><span>$500M</span><span>$1,000M</span></div>
+            </div>
+
+            <div class="ctl">
+              <div class="ctl-row">
+                <label for="seedCheckSlider">Seed-Strap Single Check</label>
+                <div class="numbox"><span>$</span><input type="number" id="seedCheckInput" min="0.5" max="5" step="0.1" value="2.0" /><span>M</span></div>
+              </div>
+              <input type="range" id="seedCheckSlider" min="0.5" max="5" step="0.1" value="2.0" />
+              <div class="scale"><span>$0.5M</span><span>$2.0M</span><span>$3.5M</span><span>$5.0M</span></div>
+            </div>
+
+            <div class="ctl">
+              <div class="ctl-row">
+                <label for="seedPostSlider">Seed-Strap Post-Money Cap</label>
+                <div class="numbox"><span>$</span><input type="number" id="seedPostInput" min="5" max="30" step="0.5" value="15.0" /><span>M</span></div>
+              </div>
+              <input type="range" id="seedPostSlider" min="5" max="30" step="0.5" value="15.0" />
+              <div class="scale"><span>$5M</span><span>$15M</span><span>$22M</span><span>$30M</span></div>
+              <div class="implied"><span>Implied Investor Stake:</span><b id="impliedSeedStake">13.3%</b></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <button type="button" class="vc-toggle" id="toggleVcDrawer" aria-expanded="true">
+              <h3><span class="dotc dot-amber"></span> Traditional VC Path Assumptions</h3>
+              <span class="chev" id="vcDrawerChevron">Hide &minus;</span>
+            </button>
+            <div class="vc-body" id="vcDrawerBody">
+              <div class="mini-ctl">
+                <div class="row"><span>Seed Round Dilution</span><b id="vcSeedVal">15%</b></div>
+                <input type="range" class="vc" id="vcSeedSlider" min="5" max="30" step="1" value="15" />
+              </div>
+              <div class="mini-ctl">
+                <div class="row"><span>Series A Dilution</span><b id="vcAVal">20%</b></div>
+                <input type="range" class="vc" id="vcASlider" min="0" max="35" step="1" value="20" />
+              </div>
+              <div class="mini-ctl">
+                <div class="row"><span>Series B Dilution</span><b id="vcBVal">18%</b></div>
+                <input type="range" class="vc" id="vcBSlider" min="0" max="30" step="1" value="18" />
+              </div>
+              <div class="mini-ctl">
+                <div class="row"><span>Series C / Growth Dilution</span><b id="vcCVal">15%</b></div>
+                <input type="range" class="vc" id="vcCSlider" min="0" max="25" step="1" value="15" />
+              </div>
+              <div class="mini-ctl">
+                <div class="row"><span>Cumulative Option Pool Refresh</span><b id="vcEsopVal">10%</b></div>
+                <input type="range" class="vc" id="vcEsopSlider" min="0" max="20" step="1" value="10" />
+              </div>
+              <div class="mini-ctl divider">
+                <div class="row"><span><strong>VC 1x Liquidation Preference Stack</strong></span><b id="vcPrefVal">$45M</b></div>
+                <input type="range" class="vc" id="vcPrefSlider" min="5" max="200" step="5" value="45" />
+                <p class="mini-note">Total capital raised across Seed to C, paid back 1x before common equity participates (or converts if pro-rata common value is higher).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Outputs -->
+        <div>
+          <div class="insight">
+            <div class="delta">&Delta;</div>
+            <div>
+              <div class="k">Live Waterfall Synthesis</div>
+              <p id="insightText">Loading the waterfall model.</p>
+            </div>
+          </div>
+
+          <div class="path-grid">
+            <div class="path featured">
+              <div class="path-top">
+                <span class="name name-green">Path B: SeedBoot (1-Round)</span>
+                <span class="tag">Un-diluted</span>
+              </div>
+              <div class="lab2">Founder Net Payout</div>
+              <div class="payout payout-green" id="sbFounderPayout">$69.3M</div>
+              <dl>
+                <div><dt>Founder Ownership at Exit</dt><dd id="sbFounderOwn">86.7%</dd></div>
+                <div><dt>Seed Investor Stake and Payout</dt><dd id="sbInvestorSummary">13.3% ($10.7M)</dd></div>
+                <div><dt>Seed Investor Return (MOIC)</dt><dd id="sbInvestorMoic">5.3x</dd></div>
+                <div><dt>Min. Exit for $20M Founder Cash</dt><dd id="sbMinExit20">$23.1M</dd></div>
+              </dl>
+            </div>
+
+            <div class="path">
+              <div class="path-top">
+                <span class="name name-amber">Path A: Multi-Round VC</span>
+                <span class="tag tag-amber">Seed &#8594; A/B/C</span>
+              </div>
+              <div class="lab2">Founder Net Payout</div>
+              <div class="payout" id="vcFounderPayout">$14.9M</div>
+              <dl>
+                <div><dt>Founder Ownership at Exit</dt><dd id="vcFounderOwn">42.6%</dd></div>
+                <div><dt>Waterfall Mode Applied</dt><dd id="vcWaterfallMode">1x Pref ($45M)</dd></div>
+                <div><dt>Diluted Seed Investor Payout</dt><dd id="vcSeedInvestorSummary">5.1% ($4.1M)</dd></div>
+                <div><dt>Min. Exit for $20M Founder Cash</dt><dd id="vcMinExit20">$91.9M</dd></div>
+              </dl>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-head">
+              <h4>Cap Table Split at Exit (%)</h4>
+              <div class="legend">
+                <span><span class="sw sw-green"></span>Founders</span>
+                <span><span class="sw sw-slate"></span>Seed Investor</span>
+                <span><span class="sw sw-amber"></span>Series A/B/C + ESOP</span>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-lab"><span>SeedBoot (1-Round)</span><span class="mono" id="sbBarLabel" style="color:var(--accent-strong)">86.7% Founders / 13.3% Seed</span></div>
+              <div class="bar-track">
+                <div class="bar-seg seg-founders" id="sbBarFounders" style="width:86.7%">86.7%</div>
+                <div class="bar-seg seg-seed" id="sbBarSeed" style="width:13.3%">13.3%</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-lab"><span>Multi-Round VC (Seed &#8594; A/B/C)</span><span class="mono" id="vcBarLabel" style="color:var(--amber)">42.6% Founders / 5.1% Seed / 52.3% Later</span></div>
+              <div class="bar-track">
+                <div class="bar-seg seg-founders" id="vcBarFounders" style="width:42.6%">42.6%</div>
+                <div class="bar-seg seg-seed" id="vcBarSeed" style="width:5.1%"></div>
+                <div class="bar-seg seg-later" id="vcBarLater" style="width:52.3%">52.3%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-head">
+              <div>
+                <h4>Founder Net Cash Across Exit Scenarios ($M)</h4>
+                <p>Net common proceeds after liquidation preference overhang ($25M to $500M exits)</p>
+              </div>
+              <div class="legend">
+                <span style="color:var(--accent-strong);font-weight:700"><span class="sw sw-green"></span>SeedBoot</span>
+                <span style="color:var(--amber);font-weight:700"><span class="sw sw-amber"></span>Multi-Round VC</span>
+              </div>
+            </div>
+            <svg id="scenarioChartSvg" class="chart" viewBox="0 0 640 240" role="img" aria-label="Founder net cash across exit scenarios bar chart"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUY BOX -->
+  <section class="block" id="buybox">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">03 // Strategic Liquidity</div>
+        <h2>What Fortune 500 and PE Acquirers Actually Buy</h2>
+        <p class="lede">Incumbents would rather pay $40M to $180M to acquire a profitable, embedded AI workflow than spend three years failing to build it internally. SeedBoot prepares your cap table, SOC 2 compliance, and data room from Day 1 to clear these exact buy-boxes.</p>
+      </div>
+      <div class="buy-grid">
+        <div class="buy">
+          <div class="k">METRIC 01 // SCALE</div>
+          <div class="big">$3M to $15M ARR</div>
+          <p>Proven enterprise or mid-market retention (over 105% NRR) with predictable recurring revenue and zero vanity burn.</p>
+        </div>
+        <div class="buy">
+          <div class="k">METRIC 02 // UNIT ECONOMICS</div>
+          <div class="big">75%+ Gross Margin</div>
+          <p>Disciplined inference routing and workflow software pricing. Acquirers immediately underwrite accretive EBITDA.</p>
+        </div>
+        <div class="buy">
+          <div class="k">METRIC 03 // TEAM DENSITY</div>
+          <div class="big">3 to 8 Builders</div>
+          <p>High revenue per employee ($600K to $2M+ per head) makes post-merger integration effortless for corporate development teams.</p>
+        </div>
+        <div class="buy">
+          <div class="k">METRIC 04 // DEFENSIBILITY</div>
+          <div class="big">Workflow Lock-In</div>
+          <p>Proprietary domain data, regulatory compliance, and system-of-record integrations (healthcare, legal, insurance, trades).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTAKE -->
+  <section class="block alt" id="apply">
+    <div class="wrap">
+      <div class="section-head center" style="margin-left:auto;margin-right:auto">
+        <div class="kicker">04 // Founder Intake and Readiness Diagnostic</div>
+        <h2>Submit Your Venture to SeedBoot</h2>
+        <p class="lede">Complete the intake profile below to generate your live <strong>Seed-Strap Fit Score</strong>, receive an indicative 1-round term sheet structure, and request a partner review.</p>
+      </div>
+
+      <div class="form-wrap">
+        <div class="form-card" id="intakeFormContainer">
+          <form id="founderIntakeForm" novalidate>
+            <div class="f-row two">
+              <div>
+                <label class="flabel" for="ventureName">Venture Name <span class="req">*</span></label>
+                <input type="text" id="ventureName" required placeholder="e.g. Veriscribe AI" />
+              </div>
+              <div>
+                <label class="flabel" for="ventureUrl">Domain / Product URL <span class="req">*</span></label>
+                <input type="text" id="ventureUrl" required placeholder="e.g. veriscribe.ai" />
+              </div>
+            </div>
+
+            <div>
+              <label class="flabel" for="founderEmail">Founder Work Email <span class="req">*</span></label>
+              <input type="email" id="founderEmail" required placeholder="founder@company.com" />
+            </div>
+
+            <div>
+              <span class="flabel" id="teamSizeLabel">Full-Time Team Size <span class="req">*</span></span>
+              <div class="pills" role="radiogroup" aria-labelledby="teamSizeLabel">
+                <label class="pill"><input type="radio" name="teamSize" value="1-2" /><div>1 to 2 Builders</div></label>
+                <label class="pill"><input type="radio" name="teamSize" value="3-5" checked /><div>3 to 5 Builders</div></label>
+                <label class="pill"><input type="radio" name="teamSize" value="6-10" /><div>6 to 10 Team</div></label>
+                <label class="pill"><input type="radio" name="teamSize" value="10+" /><div>10+ Team</div></label>
+              </div>
+            </div>
+
+            <div class="f-row two">
+              <div>
+                <label class="flabel" for="revenueStage">Current Revenue Stage</label>
+                <select id="revenueStage">
+                  <option value="pre">Pre-revenue / Shipped MVP</option>
+                  <option value="early">$1K to $25K MRR</option>
+                  <option value="growth" selected>$25K to $100K MRR</option>
+                  <option value="scale">$100K+ MRR (Profitable / Near-Breakeven)</option>
+                </select>
+              </div>
+              <div>
+                <label class="flabel" for="capitalTrack">Preferred SeedBoot Track</label>
+                <select id="capitalTrack">
+                  <option value="single_check">Single Seed-Strap Check ($500K to $3M)</option>
+                  <option value="studio_gtm">Studio Co-Build + Enterprise GTM Stack</option>
+                  <option value="ma_exit">M&amp;A Exit Readiness / Strategic Buyer Intro</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="flabel" for="workflowThesis">Target Exit Horizon and Why Your Workflow Wins <span class="req">*</span></label>
+              <textarea id="workflowThesis" rows="4" required placeholder="Describe the specific workflow you automate, current customer traction, capital needed to reach profitability, and which Fortune 500 or PE incumbents would acquire you..."></textarea>
+            </div>
+
+            <div class="err" id="formErrorBox" role="alert"></div>
+
+            <div class="form-foot">
+              <p>Confidential intake. Zero obligation. Reviewed directly by SeedBoot principals within 48 hours.</p>
+              <button type="submit" class="btn btn-accent">Generate Fit Score and Submit &#8594;</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="result-card" id="intakeResultCard">
+          <div class="result-top">
+            <div>
+              <span class="ok-chip">&#10003; INTAKE LOGGED &middot; DIAGNOSTIC READY</span>
+              <h3 id="resVentureTitle">Veriscribe AI</h3>
+              <p class="meta" id="resVentureMeta">veriscribe.ai</p>
+            </div>
+            <div class="score-box">
+              <div>
+                <div class="lab">Seed-Strap Fit Score</div>
+                <div class="tier" id="resFitTier">High-Conviction Fit</div>
+              </div>
+              <div class="score-num" id="resFitScore">92<small>/100</small></div>
+            </div>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-box">
+              <h4>Indicative 1-Round Structure</h4>
+              <ul id="resTermSheetList"></ul>
+            </div>
+            <div class="result-box">
+              <h4>48-Hour Partner Diligence Protocol</h4>
+              <ol>
+                <li><strong>Unit Economics Audit:</strong> Automated read-only Stripe / billing cohort review (no 40-slide deck required).</li>
+                <li><strong>Acquirer Mapping:</strong> Cross-match your workflow against 15+ active corporate development and PE buy-boxes.</li>
+                <li><strong>Clean Term Sheet:</strong> Single-page Zero-Follow-On SAFE or common equity agreement within 5 business days.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="result-actions">
+            <button type="button" class="btn btn-dark btn-sm" id="copySummaryBtn"><span id="copyBtnText">Copy Intake and Term Summary</span></button>
+            <button type="button" class="reset-link" id="editIntakeBtn">&#8592; Edit Submission</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-in">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-mark">SB</span>
+        <span>seedboot.com</span>
+        <span class="note">Built for Founder B.</span>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#thesis">Thesis</a>
+        <a href="#calculator">Exit Calculator</a>
+        <a href="#buybox">M&amp;A Buy-Box</a>
+        <a href="#apply">Founder Intake</a>
+        <a class="buy" href="https://www.atom.com/name/SeedBoot.com">Buy This Domain</a>
+      </nav>
+    </div>
+
+    <div class="atom-pointer">
+      <p>This domain is for sale - <a href="https://www.atom.com/name/SeedBoot.com">Make an offer on Atom</a></p>
+    </div>
+
+    <div class="footer-bottom">
+      <p>Disclaimer: All cap-table waterfalls, dilution figures, and M&amp;A payout comparisons generated on seedboot.com are illustrative financial modeling tools and do not constitute formal legal, tax, or investment advice.</p>
+      <p class="copy">&copy; 2026 SeedBoot Ventures.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* Theme: follow system by default, toggle in memory only */
+  var root = document.documentElement;
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  root.setAttribute('data-theme', mq.matches ? 'dark' : 'light');
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    updateCalculator();
+  });
+
+  function isDark() { return root.getAttribute('data-theme') === 'dark'; }
+
+  /* Calculator state */
+  var state = {
+    exitVal: 80, seedCheck: 2.0, seedPost: 15.0,
+    vcSeedDil: 15, vcADil: 20, vcBDil: 18, vcCDil: 15, vcEsopDil: 10, vcPrefStack: 45
+  };
+
+  function $(id) { return document.getElementById(id); }
+  var els = {
+    exitValSlider: $('exitValSlider'), exitValInput: $('exitValInput'),
+    seedCheckSlider: $('seedCheckSlider'), seedCheckInput: $('seedCheckInput'),
+    seedPostSlider: $('seedPostSlider'), seedPostInput: $('seedPostInput'),
+    impliedSeedStake: $('impliedSeedStake'),
+    vcSeedSlider: $('vcSeedSlider'), vcSeedVal: $('vcSeedVal'),
+    vcASlider: $('vcASlider'), vcAVal: $('vcAVal'),
+    vcBSlider: $('vcBSlider'), vcBVal: $('vcBVal'),
+    vcCSlider: $('vcCSlider'), vcCVal: $('vcCVal'),
+    vcEsopSlider: $('vcEsopSlider'), vcEsopVal: $('vcEsopVal'),
+    vcPrefSlider: $('vcPrefSlider'), vcPrefVal: $('vcPrefVal'),
+    insightText: $('insightText'),
+    sbFounderPayout: $('sbFounderPayout'), sbFounderOwn: $('sbFounderOwn'),
+    sbInvestorSummary: $('sbInvestorSummary'), sbInvestorMoic: $('sbInvestorMoic'), sbMinExit20: $('sbMinExit20'),
+    vcFounderPayout: $('vcFounderPayout'), vcFounderOwn: $('vcFounderOwn'),
+    vcWaterfallMode: $('vcWaterfallMode'), vcSeedInvestorSummary: $('vcSeedInvestorSummary'), vcMinExit20: $('vcMinExit20'),
+    sbBarLabel: $('sbBarLabel'), sbBarFounders: $('sbBarFounders'), sbBarSeed: $('sbBarSeed'),
+    vcBarLabel: $('vcBarLabel'), vcBarFounders: $('vcBarFounders'), vcBarSeed: $('vcBarSeed'), vcBarLater: $('vcBarLater'),
+    scenarioChartSvg: $('scenarioChartSvg')
+  };
+
+  function fmtM(val) {
+    if (val >= 100) return '$' + val.toFixed(0) + 'M';
+    return '$' + val.toFixed(1) + 'M';
+  }
+
+  function computeWaterfall(exitM) {
+    var sbInvestorPct = Math.min(0.60, state.seedCheck / Math.max(state.seedCheck, state.seedPost));
+    var sbFounderPct = 1 - sbInvestorPct;
+    var sbInvestorPayout, sbFounderPayout;
+    if (exitM <= state.seedCheck) {
+      sbInvestorPayout = exitM; sbFounderPayout = 0;
+    } else if (exitM * sbInvestorPct < state.seedCheck) {
+      sbInvestorPayout = state.seedCheck; sbFounderPayout = exitM - state.seedCheck;
+    } else {
+      sbInvestorPayout = exitM * sbInvestorPct; sbFounderPayout = exitM * sbFounderPct;
+    }
+    var sbMoic = state.seedCheck > 0 ? sbInvestorPayout / state.seedCheck : 0;
+    var sbMinExitFor20 = sbFounderPct > 0 ? 20 / sbFounderPct : 9999;
+
+    var fSeed = 1 - state.vcSeedDil / 100, fA = 1 - state.vcADil / 100,
+        fB = 1 - state.vcBDil / 100, fC = 1 - state.vcCDil / 100, fEsop = 1 - state.vcEsopDil / 100;
+    var vcFounderPct = fSeed * fA * fB * fC * fEsop;
+    var vcSeedInvestorPct = (state.vcSeedDil / 100) * fA * fB * fC * fEsop;
+    var vcTotalInvestorPct = Math.max(0, 1 - vcFounderPct - state.vcEsopDil / 100);
+    var conversionThreshold = vcTotalInvestorPct > 0 ? state.vcPrefStack / vcTotalInvestorPct : Infinity;
+    var vcFounderPayout = 0, vcModeLabel = '';
+    var commonPoolShare = vcFounderPct / ((vcFounderPct + state.vcEsopDil / 100) || 1);
+    if (exitM <= state.vcPrefStack) {
+      vcFounderPayout = 0; vcModeLabel = '1x Pref ($' + state.vcPrefStack + 'M)';
+    } else if (exitM < conversionThreshold) {
+      vcFounderPayout = (exitM - state.vcPrefStack) * commonPoolShare;
+      vcModeLabel = '1x Pref ($' + state.vcPrefStack + 'M)';
+    } else {
+      vcFounderPayout = exitM * vcFounderPct; vcModeLabel = 'Converted Common';
+    }
+    var vcSeedInvestorPayout = exitM >= conversionThreshold
+      ? exitM * vcSeedInvestorPct
+      : Math.min(exitM, state.vcPrefStack) * (vcSeedInvestorPct / (vcTotalInvestorPct || 1));
+    var exitNeededUnderPref = state.vcPrefStack + 20 / (commonPoolShare || 0.01);
+    var exitNeededUnderCommon = vcFounderPct > 0 ? 20 / vcFounderPct : 9999;
+    var vcMinExitFor20 = Math.min(exitNeededUnderPref, exitNeededUnderCommon);
+
+    return {
+      sbInvestorPct: sbInvestorPct, sbFounderPct: sbFounderPct,
+      sbInvestorPayout: sbInvestorPayout, sbFounderPayout: sbFounderPayout,
+      sbMoic: sbMoic, sbMinExitFor20: sbMinExitFor20,
+      vcFounderPct: vcFounderPct, vcSeedInvestorPct: vcSeedInvestorPct,
+      vcFounderPayout: vcFounderPayout, vcSeedInvestorPayout: vcSeedInvestorPayout,
+      vcModeLabel: vcModeLabel, vcMinExitFor20: vcMinExitFor20
+    };
+  }
+
+  function renderScenarioChart() {
+    var scenarios = [25, 50, 80, 150, 300, 500];
+    var data = scenarios.map(function (exitM) {
+      var r = computeWaterfall(exitM);
+      return { exitM: exitM, sb: r.sbFounderPayout, vc: r.vcFounderPayout };
+    });
+    var maxVal = Math.max.apply(null, data.map(function (d) { return Math.max(d.sb, d.vc); }).concat([50]));
+    var dark = isDark();
+    var textColor = dark ? '#8ba091' : '#6b7a70';
+    var gridColor = dark ? '#2b3d32' : '#d9ded6';
+    var hi = dark ? '#3ecf8e' : '#0a7a4b';
+    var svgW = 640, svgH = 240, padLeft = 48, padRight = 16, padTop = 22, padBottom = 36;
+    var plotW = svgW - padLeft - padRight, plotH = svgH - padTop - padBottom;
+    var html = '', i, val, y;
+    for (i = 0; i <= 4; i++) {
+      val = maxVal / 4 * i; y = padTop + plotH - i / 4 * plotH;
+      html += '<line x1="' + padLeft + '" y1="' + y + '" x2="' + (svgW - padRight) + '" y2="' + y + '" stroke="' + gridColor + '" stroke-width="1"/>';
+      html += '<text x="' + (padLeft - 8) + '" y="' + (y + 4) + '" text-anchor="end" fill="' + textColor + '" font-family="JetBrains Mono, monospace" font-size="10">$' + Math.round(val) + 'M</text>';
+    }
+    var groupW = plotW / scenarios.length, barW = Math.min(24, groupW * 0.32);
+    data.forEach(function (d, idx) {
+      var centerX = padLeft + groupW * idx + groupW / 2;
+      var isCurrent = Math.abs(d.exitM - state.exitVal) <= 10;
+      if (isCurrent) {
+        html += '<rect x="' + (centerX - groupW * 0.44) + '" y="' + (padTop - 6) + '" width="' + groupW * 0.88 + '" height="' + (plotH + 10) + '" rx="8" fill="' + hi + '" fill-opacity="0.08"/>';
+      }
+      var sbH = Math.max(2, d.sb / maxVal * plotH), sbY = padTop + plotH - sbH;
+      html += '<rect x="' + (centerX - barW - 2) + '" y="' + sbY + '" width="' + barW + '" height="' + sbH + '" rx="4" fill="#0a7a4b"/>';
+      html += '<text x="' + (centerX - barW / 2 - 2) + '" y="' + (sbY - 5) + '" text-anchor="middle" fill="#0a7a4b" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="700">$' + Math.round(d.sb) + 'M</text>';
+      var vcH = Math.max(2, d.vc / maxVal * plotH), vcY = padTop + plotH - vcH;
+      html += '<rect x="' + (centerX + 2) + '" y="' + vcY + '" width="' + barW + '" height="' + vcH + '" rx="4" fill="#b45309"/>';
+      html += '<text x="' + (centerX + barW / 2 + 2) + '" y="' + (vcY - 5) + '" text-anchor="middle" fill="#b45309" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="600">$' + Math.round(d.vc) + 'M</text>';
+      html += '<text x="' + centerX + '" y="' + (svgH - 12) + '" text-anchor="middle" fill="' + (isCurrent ? hi : textColor) + '" font-family="JetBrains Mono, monospace" font-size="11" font-weight="' + (isCurrent ? '700' : '500') + '">$' + d.exitM + 'M Exit</text>';
+    });
+    els.scenarioChartSvg.innerHTML = html;
+  }
+
+  function updateCalculator() {
+    if (state.seedPost < state.seedCheck + 1) {
+      state.seedPost = Number((state.seedCheck + 1).toFixed(1));
+      els.seedPostSlider.value = state.seedPost;
+      els.seedPostInput.value = state.seedPost;
+    }
+    var res = computeWaterfall(state.exitVal);
+    els.impliedSeedStake.textContent = (res.sbInvestorPct * 100).toFixed(1) + '%';
+    els.vcSeedVal.textContent = state.vcSeedDil + '%';
+    els.vcAVal.textContent = state.vcADil + '%';
+    els.vcBVal.textContent = state.vcBDil + '%';
+    els.vcCVal.textContent = state.vcCDil + '%';
+    els.vcEsopVal.textContent = state.vcEsopDil + '%';
+    els.vcPrefVal.textContent = '$' + state.vcPrefStack + 'M';
+
+    els.sbFounderPayout.textContent = fmtM(res.sbFounderPayout);
+    els.sbFounderOwn.textContent = (res.sbFounderPct * 100).toFixed(1) + '%';
+    els.sbInvestorSummary.textContent = (res.sbInvestorPct * 100).toFixed(1) + '% (' + fmtM(res.sbInvestorPayout) + ')';
+    els.sbInvestorMoic.textContent = res.sbMoic.toFixed(1) + 'x';
+    els.sbMinExit20.textContent = fmtM(res.sbMinExitFor20);
+
+    els.vcFounderPayout.textContent = fmtM(res.vcFounderPayout);
+    els.vcFounderOwn.textContent = (res.vcFounderPct * 100).toFixed(1) + '%';
+    els.vcWaterfallMode.textContent = res.vcModeLabel;
+    els.vcSeedInvestorSummary.textContent = (res.vcSeedInvestorPct * 100).toFixed(1) + '% (' + fmtM(res.vcSeedInvestorPayout) + ')';
+    els.vcMinExit20.textContent = fmtM(res.vcMinExitFor20);
+
+    var sbF = (res.sbFounderPct * 100).toFixed(1), sbS = (res.sbInvestorPct * 100).toFixed(1);
+    els.sbBarLabel.textContent = sbF + '% Founders / ' + sbS + '% Seed';
+    els.sbBarFounders.style.width = sbF + '%';
+    els.sbBarFounders.textContent = Number(sbF) >= 14 ? sbF + '%' : '';
+    els.sbBarSeed.style.width = sbS + '%';
+    els.sbBarSeed.textContent = Number(sbS) >= 10 ? sbS + '%' : '';
+
+    var vcF = (res.vcFounderPct * 100).toFixed(1), vcS = (res.vcSeedInvestorPct * 100).toFixed(1);
+    var vcL = Math.max(0, 100 - Number(vcF) - Number(vcS)).toFixed(1);
+    els.vcBarLabel.textContent = vcF + '% Founders / ' + vcS + '% Seed / ' + vcL + '% Later VCs and ESOP';
+    els.vcBarFounders.style.width = vcF + '%';
+    els.vcBarFounders.textContent = Number(vcF) >= 14 ? vcF + '%' : '';
+    els.vcBarSeed.style.width = vcS + '%';
+    els.vcBarSeed.textContent = Number(vcS) >= 9 ? vcS + '%' : '';
+    els.vcBarLater.style.width = vcL + '%';
+    els.vcBarLater.textContent = Number(vcL) >= 14 ? vcL + '%' : '';
+
+    var delta = res.sbFounderPayout - res.vcFounderPayout;
+    if (res.vcFounderPayout <= 0.1) {
+      els.insightText.innerHTML = 'At a <span class="mono">' + fmtM(state.exitVal) + '</span> exit, Multi-Round VC founders walk away with <span class="mono a">$0.0M</span> due to the <span class="mono">$' + state.vcPrefStack + 'M</span> liquidation preference overhang, while Seed-Strapping puts <span class="mono g">' + fmtM(res.sbFounderPayout) + '</span> directly in founders\u2019 pockets.';
+    } else {
+      var multiple = (res.sbFounderPayout / res.vcFounderPayout).toFixed(1);
+      els.insightText.innerHTML = 'At a <span class="mono">' + fmtM(state.exitVal) + '</span> exit, Seed-Strapping puts <span class="mono g">' + fmtM(res.sbFounderPayout) + '</span> in founders\u2019 pockets vs. <span class="mono a">' + fmtM(res.vcFounderPayout) + '</span> after VC dilution and preference overhang: a <span class="mono g">' + multiple + 'x founder payout advantage</span> (+' + fmtM(delta) + ' net).';
+    }
+    renderScenarioChart();
+  }
+
+  var presetButtons = document.querySelectorAll('.preset-btn');
+  function clearActivePreset() {
+    presetButtons.forEach(function (b) { b.classList.remove('active'); });
+  }
+  function bindRangeAndNumber(slider, input, key, min, max) {
+    slider.addEventListener('input', function () {
+      state[key] = parseFloat(slider.value);
+      input.value = state[key];
+      clearActivePreset();
+      updateCalculator();
+    });
+    input.addEventListener('change', function () {
+      var v = parseFloat(input.value);
+      if (isNaN(v)) v = state[key];
+      v = Math.max(min, Math.min(max, v));
+      state[key] = v; slider.value = v; input.value = v;
+      clearActivePreset();
+      updateCalculator();
+    });
+  }
+  bindRangeAndNumber(els.exitValSlider, els.exitValInput, 'exitVal', 10, 1000);
+  bindRangeAndNumber(els.seedCheckSlider, els.seedCheckInput, 'seedCheck', 0.5, 5.0);
+  bindRangeAndNumber(els.seedPostSlider, els.seedPostInput, 'seedPost', 5, 30);
+  [[els.vcSeedSlider, 'vcSeedDil'], [els.vcASlider, 'vcADil'], [els.vcBSlider, 'vcBDil'],
+   [els.vcCSlider, 'vcCDil'], [els.vcEsopSlider, 'vcEsopDil'], [els.vcPrefSlider, 'vcPrefStack']
+  ].forEach(function (pair) {
+    pair[0].addEventListener('input', function () {
+      state[pair[1]] = parseFloat(pair[0].value);
+      clearActivePreset();
+      updateCalculator();
+    });
+  });
+
+  var presets = {
+    base44: { exitVal: 80, seedCheck: 2.0, seedPost: 15.0, vcSeedDil: 15, vcADil: 20, vcBDil: 18, vcCDil: 15, vcEsopDil: 10, vcPrefStack: 45 },
+    midmarket: { exitVal: 150, seedCheck: 2.5, seedPost: 18.0, vcSeedDil: 15, vcADil: 20, vcBDil: 18, vcCDil: 15, vcEsopDil: 10, vcPrefStack: 65 },
+    zapier: { exitVal: 500, seedCheck: 1.5, seedPost: 12.0, vcSeedDil: 15, vcADil: 20, vcBDil: 18, vcCDil: 15, vcEsopDil: 10, vcPrefStack: 110 }
+  };
+  function applyPreset(name) {
+    var p = presets[name];
+    if (!p) return;
+    Object.keys(p).forEach(function (k) { state[k] = p[k]; });
+    els.exitValSlider.value = state.exitVal; els.exitValInput.value = state.exitVal;
+    els.seedCheckSlider.value = state.seedCheck; els.seedCheckInput.value = state.seedCheck;
+    els.seedPostSlider.value = state.seedPost; els.seedPostInput.value = state.seedPost;
+    els.vcSeedSlider.value = state.vcSeedDil; els.vcASlider.value = state.vcADil;
+    els.vcBSlider.value = state.vcBDil; els.vcCSlider.value = state.vcCDil;
+    els.vcEsopSlider.value = state.vcEsopDil; els.vcPrefSlider.value = state.vcPrefStack;
+    clearActivePreset();
+    var btn = document.querySelector('.preset-btn[data-preset="' + name + '"]');
+    if (btn) btn.classList.add('active');
+    updateCalculator();
+  }
+  presetButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () { applyPreset(btn.getAttribute('data-preset')); });
+  });
+  $('resetCalcBtn').addEventListener('click', function () { applyPreset('base44'); });
+
+  var vcBody = $('vcDrawerBody'), vcChev = $('vcDrawerChevron');
+  $('toggleVcDrawer').addEventListener('click', function () {
+    var hidden = vcBody.classList.toggle('hidden');
+    vcChev.innerHTML = hidden ? 'Expand +' : 'Hide &minus;';
+    this.setAttribute('aria-expanded', hidden ? 'false' : 'true');
+  });
+
+  updateCalculator();
+
+  /* Intake form */
+  var intakeForm = $('founderIntakeForm');
+  var formContainer = $('intakeFormContainer');
+  var resultCard = $('intakeResultCard');
+  var errorBox = $('formErrorBox');
+  var latestSummaryText = '';
+
+  intakeForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorBox.classList.remove('show');
+    var ventureName = $('ventureName').value.trim();
+    var ventureUrl = $('ventureUrl').value.trim();
+    var founderEmail = $('founderEmail').value.trim();
+    var teamEl = document.querySelector('input[name="teamSize"]:checked');
+    var teamSize = teamEl ? teamEl.value : '3-5';
+    var revenueStage = $('revenueStage').value;
+    var capitalTrack = $('capitalTrack').value;
+    var thesis = $('workflowThesis').value.trim();
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(founderEmail);
+    if (!ventureName || !ventureUrl || !emailOk || thesis.length < 15) {
+      errorBox.textContent = 'Please enter a valid venture name, product URL, work email, and at least a short summary of your workflow moat (15+ characters).';
+      errorBox.classList.add('show');
+      return;
+    }
+    var score = 50;
+    var teamWeights = { '1-2': 20, '3-5': 25, '6-10': 14, '10+': 5 };
+    score += teamWeights[teamSize] || 15;
+    var revWeights = { 'pre': 8, 'early': 15, 'growth': 21, 'scale': 25 };
+    score += revWeights[revenueStage] || 12;
+    if (thesis.length >= 80) score += 4;
+    score = Math.min(99, Math.max(55, score));
+    var tier = 'Strong Capital-Efficiency Fit';
+    if (score >= 88) tier = 'Tier-1 Seed-Strap Candidate';
+    else if (score >= 76) tier = 'High-Conviction Studio Fit';
+
+    var trackDetails = {
+      single_check: [
+        '<strong>Check Size and Cap:</strong> $1.0M to $3.0M single-round SAFE / equity at $10M to $20M post-money.',
+        '<strong>Zero Pro-Rata / Follow-On Mandate:</strong> Explicit waiver of future round participation rights.',
+        '<strong>Founder Governance:</strong> Founders retain board control and full M&amp;A approval rights above $25M.'
+      ],
+      studio_gtm: [
+        '<strong>Studio Allocation:</strong> $500K to $1.5M seed capital + dedicated enterprise GTM and compliance stack.',
+        '<strong>Target Equity Stake:</strong> 12% to 15% common/seed equity with zero downstream dilution.',
+        '<strong>Shared Infrastructure:</strong> Automated SOC 2, enterprise security questionnaire engine, and Stripe analytics.'
+      ],
+      ma_exit: [
+        '<strong>Strategic Advisory and Bridge:</strong> Up to $1M balance-sheet bridge + corporate development buyer introductions.',
+        '<strong>Aligned Exit Fee:</strong> 2.5% M&amp;A success alignment fee (credited against any studio equity stake).',
+        '<strong>90-Day Data Room Sprint:</strong> Full financial quality-of-earnings and acquirer buy-box packaging.'
+      ]
+    };
+    $('resVentureTitle').textContent = ventureName;
+    $('resVentureMeta').textContent = ventureUrl + ' \u00B7 ' + founderEmail + ' \u00B7 Team: ' + teamSize;
+    $('resFitScore').innerHTML = score + '<small>/100</small>';
+    $('resFitTier').textContent = tier;
+    $('resTermSheetList').innerHTML = (trackDetails[capitalTrack] || trackDetails.single_check)
+      .map(function (item) { return '<li><span style="color:var(--accent-strong);font-weight:700">&#10003;</span> ' + item + '</li>'; }).join('');
+
+    var revLabels = { pre: 'Pre-revenue / Shipped MVP', early: '$1K to $25K MRR', growth: '$25K to $100K MRR', scale: '$100K+ MRR' };
+    var trackLabels = { single_check: 'Single Seed-Strap Check ($500K to $3M)', studio_gtm: 'Studio Co-Build + Enterprise GTM Stack', ma_exit: 'M&A Exit Readiness / Strategic Buyer Intro' };
+    latestSummaryText = [
+      'SEEDBOOT.COM: FOUNDER INTAKE AND FIT DIAGNOSTIC',
+      '==============================================',
+      'Venture: ' + ventureName + ' (' + ventureUrl + ')',
+      'Founder Email: ' + founderEmail,
+      'Team Size: ' + teamSize + ' | Revenue Stage: ' + revLabels[revenueStage],
+      'Preferred Track: ' + trackLabels[capitalTrack],
+      'Seed-Strap Fit Score: ' + score + '/100 (' + tier + ')',
+      '',
+      'Workflow Moat and Thesis:',
+      thesis,
+      '',
+      'Modeled Exit Benchmark (' + fmtM(state.exitVal) + ' Exit):',
+      '- SeedBoot Founder Payout: ' + els.sbFounderPayout.textContent + ' (' + els.sbFounderOwn.textContent + ' ownership)',
+      '- Multi-Round VC Payout: ' + els.vcFounderPayout.textContent + ' (' + els.vcFounderOwn.textContent + ' ownership)'
+    ].join('\n');
+
+    formContainer.style.display = 'none';
+    resultCard.classList.add('show');
+    resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  $('editIntakeBtn').addEventListener('click', function () {
+    resultCard.classList.remove('show');
+    formContainer.style.display = '';
+  });
+
+  $('copySummaryBtn').addEventListener('click', function () {
+    var btnText = $('copyBtnText');
+    function done() {
+      btnText.textContent = 'Copied to Clipboard!';
+      setTimeout(function () { btnText.textContent = 'Copy Intake and Term Summary'; }, 2500);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(latestSummaryText).then(done, function () { fallbackCopy(done); });
+    } else {
+      fallbackCopy(done);
+    }
+  });
+  function fallbackCopy(done) {
+    var ta = document.createElement('textarea');
+    ta.value = latestSummaryText;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (err) { /* clipboard unavailable */ }
+    document.body.removeChild(ta);
+  }
+})();
+</script>
+</body>
+</html>
